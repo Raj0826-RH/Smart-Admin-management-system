@@ -1,0 +1,102 @@
+<div class="login-viewport">
+  <div class="blob shape-1"></div>
+  <div class="blob shape-2"></div>
+  <div class="blob shape-3"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="app-card position-relative" style="z-index: 10;">
+    
+    <!-- LEFT: CAROUSEL WITH VECTORS -->
+    <div class="illustration-side d-none d-md-block position-relative overflow-hidden">
+      <div id="carouselExample" class="carousel slide h-100" data-bs-ride="carousel">
+        
+        <div class="carousel-indicators custom-indicators">
+          <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true"></button>
+          <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2"></button>
+        </div>
+
+        <div class="carousel-inner h-100">
+          <div class="carousel-item active h-100">
+            <div class="vector-bg">
+              <img src="assets/images/auth.svg" class="vector-img" alt="Authentication">
+              <div class="vector-text">
+                <h2>Join Us Today</h2>
+                <p>Create your account and get started</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item h-100">
+            <div class="vector-bg">
+              <img src="assets/images/data.svg" class="vector-img" alt="Personal Data">
+              <div class="vector-text">
+                <h2>Secure & Fast</h2>
+                <p>Your data is always protected</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item h-100">
+            <div class="vector-bg">
+              <img src="assets/images/fingerprint.svg" class="vector-img" alt="Fingerprint">
+              <div class="vector-text">
+                <h2>Powerful Dashboard</h2>
+                <p>Manage everything in one place</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: SIGNUP FORM -->
+    <div class="form-side">
+      <div class="form-wrapper">
+        <div class="text-center mb-4">
+           <h3 class="fw-bold mb-1" style="color: #1e293b;">Create Account</h3>
+           <p class="text-muted small">Sign up to get started.</p>
+        </div>
+
+        <form [formGroup]="signupForm" (ngSubmit)="signup()">
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingName" placeholder="Full Name" formControlName="name">
+            <label for="floatingName" class="text-muted">Full Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingSignupEmail" placeholder="Email" formControlName="email">
+            <label for="floatingSignupEmail" class="text-muted">Email address</label>
+          </div>
+
+          <div class="form-floating mb-3 position-relative">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingSignupPassword" placeholder="Password" formControlName="password" style="padding-right: 45px;">
+            <label for="floatingSignupPassword" class="text-muted">Password</label>
+            <span class="position-absolute end-0 top-0 mt-3 me-3 text-muted" style="cursor: pointer; z-index: 10; user-select: none;" (click)="hidePassword = !hidePassword" title="Toggle Password Visibility">
+              <svg *ngIf="!hidePassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+              <svg *ngIf="hidePassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
+          </div>
+
+          <div class="form-floating mb-4">
+            <input type="text" class="form-control" id="floatingPhone" placeholder="Phone Number" formControlName="phone">
+            <label for="floatingPhone" class="text-muted">Phone Number</label>
+          </div>
+
+          <button class="btn btn-modern w-100" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-container">
+              Creating Account...
+              <div class="spinner"></div>
+            </span>
+            <span *ngIf="!loading">Create Account</span>
+          </button>
+        </form>
+
+        <p class="text-center mt-4 mb-0 small text-muted">
+          Already have an account?
+          <a routerLink="/login" class="fw-bold signature-link text-decoration-none">Login</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>

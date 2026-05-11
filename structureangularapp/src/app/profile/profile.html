@@ -1,0 +1,66 @@
+<div class="profile-page">
+  <div class="profile-card">
+
+    <!-- Header -->
+    <div class="profile-header">
+      <div class="user-info">
+        <div class="avatar">
+          {{ username.charAt(0).toUpperCase() }}
+        </div>
+        <div>
+          <h2>{{ username }}</h2>
+          <p>{{ role }}</p>
+        </div>
+      </div>
+
+      <button class="edit-btn" (click)="editProfile()" *ngIf="!isEditMode">
+        ✏️ Edit
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="profile-body">
+
+      <div class="info-row">
+        <span class="label">Full Name:</span>
+        <input *ngIf="isEditMode" [(ngModel)]="username">
+        <span class="value" *ngIf="!isEditMode">{{ username }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Email:</span>
+        <input *ngIf="isEditMode" [(ngModel)]="email">
+        <span class="value" *ngIf="!isEditMode">{{ email }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Role:</span>
+        <span class="value">{{ role }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Contact:</span>
+        <input *ngIf="isEditMode" [(ngModel)]="contact">
+        <span class="value" *ngIf="!isEditMode">{{ contact }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Address:</span>
+        <input *ngIf="isEditMode" [(ngModel)]="address">
+        <span class="value" *ngIf="!isEditMode">{{ address }}</span>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="profile-footer" *ngIf="isEditMode">
+      <button class="save-btn" (click)="saveProfile()">
+        Save Changes
+      </button>
+      <button class="cancel-btn" (click)="cancelEdit()">
+        Cancel
+      </button>
+    </div>
+
+  </div>
+</div>

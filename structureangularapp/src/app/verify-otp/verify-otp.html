@@ -1,0 +1,49 @@
+<div class="login-viewport">
+  <div class="blob shape-1"></div>
+  <div class="blob shape-2"></div>
+  <div class="blob shape-3"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="otp-card position-relative" style="z-index: 10;">
+    <div class="form-wrapper w-100">
+      <h3 class="text-center mb-2 fw-bold" style="color: #1e293b;">2-Step Verification</h3>
+      <p class="text-center text-muted mb-4 small">Enter the 6-digit code sent to your email</p>
+
+      <form [formGroup]="otpForm" (ngSubmit)="verify()">
+        <!-- OTP INPUT BOXES -->
+        <div class="otp-container mb-4">
+          <input id="otp1" type="text" maxlength="1" inputmode="numeric" formControlName="digit1" (input)="onInput($event, 'otp2')" (keydown)="onKeyDown($event, '')" class="otp-box" autocomplete="off" />
+          <input id="otp2" type="text" maxlength="1" inputmode="numeric" formControlName="digit2" (input)="onInput($event, 'otp3')" (keydown)="onKeyDown($event, 'otp1')" class="otp-box" autocomplete="off" />
+          <input id="otp3" type="text" maxlength="1" inputmode="numeric" formControlName="digit3" (input)="onInput($event, 'otp4')" (keydown)="onKeyDown($event, 'otp2')" class="otp-box" autocomplete="off" />
+          <input id="otp4" type="text" maxlength="1" inputmode="numeric" formControlName="digit4" (input)="onInput($event, 'otp5')" (keydown)="onKeyDown($event, 'otp3')" class="otp-box" autocomplete="off" />
+          <input id="otp5" type="text" maxlength="1" inputmode="numeric" formControlName="digit5" (input)="onInput($event, 'otp6')" (keydown)="onKeyDown($event, 'otp4')" class="otp-box" autocomplete="off" />
+          <input id="otp6" type="text" maxlength="1" inputmode="numeric" formControlName="digit6" (input)="onInput($event, '')" (keydown)="onKeyDown($event, 'otp5')" class="otp-box" autocomplete="off" />
+        </div>
+
+        <!-- 🔴 ERROR -->
+        <div class="text-center mb-4" *ngIf="otpForm.touched && otpForm.invalid">
+          <small class="text-danger">Please enter all 6 digits correctly</small>
+        </div>
+
+        <!-- BUTTON -->
+        <button class="btn btn-modern w-100 mt-2" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-container">
+            Verifying...
+            <div class="spinner"></div>
+          </span>
+          <span *ngIf="!loading">Verify Identity</span>
+        </button>
+      </form>
+
+      <div class="text-center mt-4">
+        <p class="mb-0 small text-muted" *ngIf="!canResend">
+          Didn't receive a code? Resend in <span class="fw-bold text-primary">{{ resendCooldown }}s</span>
+        </p>
+        <p class="mb-0 small text-muted" *ngIf="canResend">
+          Didn't receive a code? 
+          <a href="javascript:void(0)" (click)="resendCode()" class="fw-bold text-decoration-none signature-link">Resend Now</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

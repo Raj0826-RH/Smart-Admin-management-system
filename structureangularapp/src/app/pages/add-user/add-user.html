@@ -1,0 +1,97 @@
+<div class="container mt-4">
+
+  <h2>Add User</h2>
+
+  <form [formGroup]="userForm" (ngSubmit)="addUser()" class="form-row">
+
+    <!-- NAME -->
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+
+      <mat-error *ngIf="userForm.get('name')?.touched && userForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+
+      <mat-error *ngIf="userForm.get('name')?.hasError('minlength')">
+        Minimum 3 characters required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- EMAIL -->
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+
+      <mat-error *ngIf="userForm.get('email')?.touched && userForm.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+
+      <mat-error *ngIf="userForm.get('email')?.hasError('pattern')">
+        Enter valid email
+      </mat-error>
+    </mat-form-field>
+
+    <!-- PHONE -->
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+
+      <input matInput formControlName="phone" maxlength="10" inputmode="numeric" (keypress)="numbersOnly($event)"
+        (paste)="blockNonNumericPaste($event)">
+
+      <mat-error *ngIf="userForm.get('phone')?.hasError('required')">
+        Phone is required
+      </mat-error>
+
+      <mat-error *ngIf="userForm.get('phone')?.hasError('pattern')">
+        Must be exactly 10 digits
+      </mat-error>
+    </mat-form-field>
+
+    <!-- STATE -->
+    <div class="col-md-6">
+      <select class="form-control" formControlName="state">
+        <option value="">Select State</option>
+        <option *ngFor="let s of states" [value]="s">{{ s }}</option>
+      </select>
+
+      <small class="text-danger" *ngIf="userForm.get('state')?.touched && userForm.get('state')?.hasError('required')">
+        State required
+      </small>
+    </div>
+
+    <!-- COUNTRY -->
+    <div class="col-md-6">
+      <select class="form-control" formControlName="country">
+        <option value="">Select Country</option>
+        <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+      </select>
+
+      <small class="text-danger"
+        *ngIf="userForm.get('country')?.touched && userForm.get('country')?.hasError('required')">
+        Country required
+      </small>
+    </div>
+    <!-- ZIPCODE -->
+    <mat-form-field appearance="outline">
+      <mat-label>Zipcode</mat-label>
+
+      <input matInput formControlName="zipcode" maxlength="6" inputmode="numeric" (keypress)="numbersOnly($event)"
+        (paste)="blockNonNumericPaste($event)">
+
+      <mat-error *ngIf="userForm.get('zipcode')?.hasError('required')">
+        Zipcode is required
+      </mat-error>
+
+      <mat-error *ngIf="userForm.get('zipcode')?.hasError('pattern')">
+        Must be 6 digits only
+      </mat-error>
+    </mat-form-field>
+
+    <!-- BUTTON -->
+    <button mat-raised-button color="primary" type="submit">
+      Add User
+    </button>
+
+  </form>
+</div>

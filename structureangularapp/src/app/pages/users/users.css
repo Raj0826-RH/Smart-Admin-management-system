@@ -1,0 +1,244 @@
+/* ===== USERS PAGE FULL FIX (No HTML changes needed) ===== */
+
+/* remove default browser spacing */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* your users page container */
+.container {
+  background: white;
+  min-height: 100vh;
+
+  /* keep inside spacing */
+  padding: 20px !important;
+
+  /* remove left/right gaps */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
+  /* full width */
+  width: 100% !important;
+  max-width: 100% !important;
+
+  /* optional */
+  border-radius: 10px;
+}
+
+/* page title */
+h3 {
+  color: #311d14;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* top header */
+.d-flex.justify-content-between {
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* search + sort row */
+.row.mb-3 {
+  row-gap: 12px;
+}
+
+/* table wrapper */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  background: white;
+}
+
+/* table */
+.table {
+  background: white;
+  border-radius: 0;
+  min-width: 700px;
+  margin-bottom: 0;
+  border-collapse: separate;
+  /* CRITICAL FOR STICKY HEADER */
+  border-spacing: 0;
+}
+
+/* sticky header */
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #9cb2dd !important;
+  /* New different color for heading */
+  color: #1a2b4c;
+  /* Dark distinct color */
+  font-weight: 700;
+  padding: 14px 12px;
+  border-bottom: 3px solid #d1def0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.table tbody tr:nth-child(even) td {
+  background-color: #f7f9fc;
+}
+
+.table tbody tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
+
+.table td {
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 12px;
+  color: #333;
+  border-bottom: 1px solid #edf1f7;
+}
+
+/* Pagination Styling */
+.pagination .page-link {
+  color: #1a2b4c;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
+  background-color: #f8f9fa;
+  margin: 0 2px;
+}
+
+.pagination .page-link:hover {
+  background-color: #95b0cc;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #5caac4;
+  color: #d7c7c7;
+  box-shadow: 0 4px 6px rgba(92, 170, 196, 0.3);
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #b0bdcc;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+/* buttons */
+.btn-primary {
+  background: #5caac4;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #4d99b3;
+}
+
+.btn-outline-primary {
+  border-color: #581a58;
+  color: #5caac4;
+}
+
+.btn-outline-primary:hover {
+  background: #5caac4;
+  color: rgb(224, 190, 190);
+}
+
+.btn-outline-danger:hover {
+  color: white;
+}
+
+/* modal */
+.modal-header {
+  background: #D3E3FD;
+}
+
+.modal-footer {
+  background: white;
+}
+
+/* save button */
+.btn-save-violet {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-save-violet:hover {
+  background: #6d28d9;
+  color: #fff;
+}
+
+.btn-save-violet:disabled {
+  background: #c4b5fd;
+  cursor: not-allowed;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 12px !important;
+    border-radius: 0;
+  }
+
+  h3 {
+    font-size: 28px;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .row .col-md-6,
+  .row .col-md-3 {
+    width: 100%;
+  }
+
+  .table {
+    min-width: 650px;
+  }
+}
+
+.custom-top-alert {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Container to prevent global scroll */
+.users-container {
+  height: calc(100vh - 210px);
+  overflow: hidden;
+}
+
+@media (max-width: 992px) {
+  .users-container {
+    /* Extra buffer for when search bars and buttons wrap onto multiple lines */
+    height: calc(100vh - 350px);
+  }
+}
+
+@media (max-width: 576px) {
+  .users-container {
+    /* Even more buffer for mobile devices where headers/footers stack heavily */
+    height: calc(100vh - 400px);
+  }
+}

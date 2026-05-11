@@ -1,0 +1,141 @@
+.profile-page {
+  height: calc(100vh - 120px);
+  /* Adjusting for header/footer */
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-card {
+  width: 100%;
+  flex: 1;
+  background: white;
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-header {
+  background: linear-gradient(135deg, #84c5da, #92a5e6);
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar {
+  background: white;
+  color: #92a5e6;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-info h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.user-info p {
+  margin: 5px 0 0;
+  opacity: 0.9;
+  font-size: 14px;
+}
+
+.edit-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid white;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-btn:hover {
+  background: white;
+  color: #92a5e6;
+}
+
+.profile-body {
+  padding: 40px;
+  flex: 1;
+}
+
+.info-row {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 18px;
+  border-bottom: 1px solid #f0f4f8;
+  padding-bottom: 15px;
+}
+
+.label {
+  font-weight: bold;
+  color: #333;
+  min-width: 100px;
+}
+
+.value {
+  color: #555;
+}
+
+input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccd7ee;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #92a5e6;
+}
+
+.profile-footer {
+  padding: 20px 30px;
+  background: #fcfcfc;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.save-btn,
+.cancel-btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #84c5da;
+  color: white;
+}
+
+.cancel-btn {
+  background: #92a5e6;
+  color: white;
+}

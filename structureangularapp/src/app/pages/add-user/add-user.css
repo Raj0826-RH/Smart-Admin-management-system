@@ -1,0 +1,10 @@
+.form-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 250px;
+}

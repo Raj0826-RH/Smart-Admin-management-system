@@ -1,0 +1,84 @@
+<!-- audit.html -->
+<div class="audit-wrapper">
+
+  <div class="top-bar">
+    <h2>Audit Logs</h2>
+
+    <div class="actions">
+
+      <!-- Search -->
+      <input type="text" placeholder="Search ID, Name..." [(ngModel)]="searchText" (ngModelChange)="applyFilter()"
+        class="search-box" />
+
+      <!-- Date Range + Refresh Icon -->
+      <div class="range-container">
+
+        <input type="date" [(ngModel)]="fromDate" (change)="applyDateFilter()" class="date-box" />
+
+        <span class="range-separator">TO</span>
+
+        <input type="date" [(ngModel)]="toDate" (change)="applyDateFilter()" class="date-box" />
+
+        <button class="refresh-btn" (click)="resetFilters()" title="Reset Filters">
+          ↻
+        </button>
+
+      </div>
+
+      <!-- Export -->
+      <button class="excel-btn" (click)="exportToExcel()">
+        Export to Excel
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-box">
+    <table class="table custom-table">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Old Data</th>
+          <th>New Data</th>
+          <th>Created</th>
+          <th>Updated</th>
+          <th>Module</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngIf="loading">
+          <td colspan="7">Audit Loading...</td>
+        </tr>
+
+        <tr *ngFor="let log of filteredAudits">
+          <td>{{ log.id }}</td>
+          <td>{{ parseData(log.oldData)?.name || '-' }}</td>
+          <td>{{ parseData(log.newData)?.name || '-' }}</td>
+          <td>{{ log.createdAt | date:'medium' }}</td>
+          <td>{{ log.updatedAt | date:'medium' }}</td>
+          <td>{{ log.module || '-' }}</td>
+          <td>{{ log.action || '-' }}</td>
+        </tr>
+
+        <tr *ngIf="!loading && filteredAudits.length === 0">
+          <td colspan="7" style="text-align: center; padding: 40px; color: #64748b; font-weight: 500;">
+            No audit logs found
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5,10,15,20,30,40,50,100,1000]" showFirstLastButtons (page)="onPageChange($event)">
+  </mat-paginator>
+
+</div>

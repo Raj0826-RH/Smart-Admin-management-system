@@ -1,0 +1,33 @@
+<ng-container *ngIf="showLayout; else publicRoutes">
+  <div class="app-layout">
+    <app-header (sidebarToggled)="toggleSidebar()"></app-header>
+
+    <div class="main-section">
+      <app-sidebar [isSidebarOpen]="isSidebarOpen" (sidebarToggled)="toggleSidebar()"></app-sidebar>
+
+      <div class="content-wrapper" style="position: relative;">
+        
+        <!-- Global Loading Overlay mimicking the Login button -->
+        <div class="route-loading-overlay" *ngIf="isRouteLoading">
+          <div class="loading-badge">
+            <span>{{ loadingMessage }}</span>
+            <svg class="spinner-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Hidden when loading to prevent UI flicker -->
+        <main class="page-content" [style.display]="isRouteLoading ? 'none' : 'block'">
+          <router-outlet></router-outlet>
+        </main>
+      </div>
+    </div>
+
+    <app-footer *ngIf="router.url !== '/profile'"></app-footer>
+  </div>
+</ng-container>
+
+<ng-template #publicRoutes>
+  <router-outlet></router-outlet>
+</ng-template>

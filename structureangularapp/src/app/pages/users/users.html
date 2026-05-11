@@ -1,0 +1,312 @@
+<div class="container-fluid pt-3 d-flex flex-column users-container">
+
+  <!-- Header -->
+  <div class="mb-3 flex-shrink-0">
+    <h3>User Details</h3>
+  </div>
+
+  <!-- Search + Sort + Actions -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 flex-shrink-0">
+    <div class="d-flex gap-2 mb-2 mb-md-0">
+      <input type="text" [(ngModel)]="searchText" (ngModelChange)="applyFilterSort()"
+        placeholder="Search ID, Name..." />
+      <select class="form-select" style="width: 150px;" [(ngModel)]="sortBy" (change)="applyFilterSort()">
+        <option value="id">Sort by ID</option>
+        <option value="name">Sort by Name</option>
+      </select>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm" style="background-color:#59aeca; color: white; white-space: nowrap; padding: 6px 12px;"
+        (click)="downloadCSV()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-download me-1"
+          viewBox="0 0 16 16">
+          <path
+            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+          <path
+            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+        </svg>
+        Download CSV
+      </button>
+
+      <button class="btn btn-sm btn-primary" style="white-space: nowrap; padding: 6px 12px;" (click)="openAddUser()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus"
+          viewBox="0 0 16 16">
+          <path
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg>
+        Add User
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive border rounded flex-grow-1" style="overflow-y: auto; overflow-x: auto; min-height: 0;">
+    <table class="table table-hover mb-0">
+      <thead
+        style="position: sticky; top: 0; z-index: 10; background-color: #f8f9fa; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Country</th>
+          <th>State</th>
+          <th>City</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers; let i = index">
+          <td (click)="editUser(user)" style="cursor:pointer">{{ user.id }}</td>
+          <td (click)="editUser(user)" style="cursor:pointer">{{ user.name || user.firstname + ' ' + user.lastname }}
+          </td>
+          <td (click)="editUser(user)" style="cursor:pointer">{{ user.email }}</td>
+          <td (click)="editUser(user)" style="cursor:pointer">{{ user.phone }}</td>
+          <td (click)="editUser(user)" style="cursor:pointer">{{ user.country }}</td>
+          <td (click)="editUser(user)" style="cursor:pointer">{{ user.state }}</td>
+          <td (click)="editUser(user)" style="cursor:pointer">{{ user.city }}</td>
+          <td (click)="editUser(user)" style="cursor:pointer">
+            <span class="badge" [ngClass]="user.status === 'Active' ? 'bg-success' : 'bg-danger'">
+              {{ user.status }}
+            </span>
+          </td>
+
+          <td>
+            <button type="button" class="btn btn-sm btn-outline-primary me-2"
+              style="padding: 4px 8px; display: inline-flex; align-items: center; justify-content: center;"
+              (click)="editUser(user)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+
+            <button type="button" class="btn btn-sm btn-outline-danger"
+              style="padding: 4px 8px; display: inline-flex; align-items: center; justify-content: center;"
+              (click)="deleteUser(user.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="paginatedUsers.length === 0">
+          <td colspan="9" style="text-align: center; padding: 40px; color: #64748b; font-weight: 500;">
+            No user details found
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-end align-items-center mt-3 mb-2 flex-shrink-0" *ngIf="filteredUsers.length > 0"
+    style="font-size: 13px; color: #444;">
+
+    <div class="d-flex align-items-center me-4">
+      <span class="me-2 text-muted">Items per page:</span>
+      <select class="form-select form-select-sm text-muted"
+        style="width: auto; cursor: pointer; display: inline-block; padding-right: 24px; font-size: 13px; background-color: white; border: 1px solid #ccc; box-shadow: none;"
+        [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()">
+        <option [ngValue]="5">5</option>
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="15">15</option>
+        <option [ngValue]="20">20</option>
+        <option [ngValue]="25">25</option>
+        <option [ngValue]="30">30</option>
+      </select>
+    </div>
+
+    <div class="me-4 text-muted" style="user-select: none;">
+      Page {{ currentPage }} of {{ totalPages }}
+    </div>
+
+    <div class="d-flex align-items-center">
+      <button class="btn btn-sm text-muted border-0 bg-transparent px-2" [disabled]="currentPage === 1"
+        (click)="goToPage(1)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 1 0v-9a.5.5 0 0 0-.5-.5z" />
+        </svg>
+      </button>
+      <button class="btn btn-sm text-muted border-0 bg-transparent px-2" [disabled]="currentPage === 1"
+        (click)="goToPage(currentPage - 1)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        </svg>
+      </button>
+      <button class="btn btn-sm text-muted border-0 bg-transparent px-2" [disabled]="currentPage === totalPages"
+        (click)="goToPage(currentPage + 1)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+      <button class="btn btn-sm text-muted border-0 bg-transparent px-2" [disabled]="currentPage === totalPages"
+        (click)="goToPage(totalPages)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0v-9a.5.5 0 0 1 .5-.5z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ✅ MODAL REQUIRED -->
+<div class="modal fade" id="userModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ isEdit ? 'Edit User' : 'Add User' }}
+        </h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal">
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div *ngIf="showTopAlert" class="alert alert-warning custom-top-alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          Please fill required user details!!
+        </div>
+        <form [formGroup]="userForm">
+
+          <div class="row g-3">
+
+
+            <!-- Username -->
+            <div class="col-md-4">
+              <input class="form-control" placeholder="Username" formControlName="username">
+              <small class="text-danger" *ngIf="userForm.get('username')?.touched && userForm.get('username')?.invalid">
+                Username required
+              </small>
+            </div>
+
+            <!-- First Name -->
+            <div class="col-md-4">
+              <input class="form-control" placeholder="First Name" formControlName="firstname">
+              <small class="text-danger"
+                *ngIf="userForm.get('firstname')?.touched && userForm.get('firstname')?.invalid">
+                First name required
+              </small>
+            </div>
+
+            <!-- Last Name -->
+            <div class="col-md-4">
+              <input class="form-control" placeholder="Last Name" formControlName="lastname">
+              <small class="text-danger" *ngIf="userForm.get('lastname')?.touched && userForm.get('lastname')?.invalid">
+                Last name required
+              </small>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6">
+              <input class="form-control" placeholder="Email" formControlName="email">
+              <small class="text-danger"
+                *ngIf="userForm.get('email')?.touched && userForm.get('email')?.errors?.['required']">
+                Email required
+              </small>
+
+              <small class="text-danger"
+                *ngIf="userForm.get('email')?.touched && userForm.get('email')?.errors?.['email']">
+                Enter valid email
+              </small>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-6">
+              <input class="form-control" placeholder="Phone" formControlName="phone" maxlength="10" inputmode="numeric"
+                (keypress)="numbersOnly($event)" (paste)="blockNonNumericPaste($event)">
+              <small class="text-danger"
+                *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.errors?.['required']">
+                Phone required
+              </small>
+
+              <small class="text-danger"
+                *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.errors?.['pattern']">
+                Phone must be 10 digits
+              </small>
+            </div>
+
+            <!-- Country -->
+            <div class="col-md-6">
+              <select class="form-control" formControlName="country" (change)="onCountryChange()">
+                <option value="">Select Country</option>
+                <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+              </select>
+              <small class="text-danger" *ngIf="userForm.get('country')?.touched && userForm.get('country')?.invalid">
+                Country required
+              </small>
+            </div>
+
+            <!-- State -->
+            <div class="col-md-6">
+              <select class="form-control" formControlName="state">
+                <option value="">Select State</option>
+                <option *ngFor="let s of availableStates" [value]="s">{{ s }}</option>
+              </select>
+              <small class="text-danger" *ngIf="userForm.get('state')?.touched && userForm.get('state')?.invalid">
+                State required
+              </small>
+            </div>
+
+            <!-- City -->
+            <div class="col-md-6">
+              <input class="form-control" placeholder="City" formControlName="city">
+              <small class="text-danger" *ngIf="userForm.get('city')?.touched && userForm.get('city')?.invalid">
+                City required
+              </small>
+            </div>
+
+            <!-- Zipcode -->
+            <div class="col-md-6">
+              <input class="form-control" placeholder="Zipcode" formControlName="zipcode" maxlength="6"
+                inputmode="numeric" (keypress)="numbersOnly($event)" (paste)="blockNonNumericPaste($event)">
+              <small class="text-danger"
+                *ngIf="userForm.get('zipcode')?.touched && userForm.get('zipcode')?.errors?.['required']">
+                Zipcode required
+              </small>
+
+              <small class="text-danger"
+                *ngIf="userForm.get('zipcode')?.touched && userForm.get('zipcode')?.errors?.['pattern']">
+                Zipcode must be 6 digits
+              </small>
+            </div>
+
+            <!-- Status -->
+            <div class="col-md-6">
+              <select class="form-control" formControlName="status">
+                <option value="">Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+
+              <small class="text-danger" *ngIf="userForm.get('status')?.touched && userForm.get('status')?.invalid">
+                Status required
+              </small>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-save-violet" (click)="saveUser()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>

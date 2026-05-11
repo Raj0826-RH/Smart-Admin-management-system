@@ -1,0 +1,120 @@
+/* PREMIUM CLASSY SIDEBAR THEME */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(180deg, #6b999f 0%, #bbf7d0 100%);
+  color: #647694;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sidebar.collapsed {
+  width: 76px;
+}
+
+.sidebar.collapsed .nav-label {
+  display: none;
+}
+
+.sidebar.collapsed .nav-item {
+  padding: 0;
+  margin: 0px auto;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 12px 16px 16px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.sidebar-toggle-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  /* Classy circular button */
+  color: #475569;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  gap: 6px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  margin: 4px 16px;
+  /* Pill shape floating bounds */
+  border-radius: 10px;
+  color: #334155;
+  /* Dark text for legibility on light background */
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item:hover {
+  color: #0f172a;
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateX(4px);
+}
+
+/* Beautiful vibrant pill for the active state */
+.nav-item.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+  transform: translateX(4px);
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  flex-shrink: 0;
+}
